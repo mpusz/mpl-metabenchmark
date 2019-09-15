@@ -1,0 +1,35 @@
+template<bool>
+struct conditional {
+  template<typename T, typename F>
+  using type = F;
+};
+
+template<>
+struct conditional<true> {
+  template<typename T, typename F>
+  using type = T;
+};
+
+template<bool B, typename T, typename F>
+using conditional_t = typename conditional<B>::template type<T, F>;
+
+<% (1..n).each do |i| %>
+struct <%= "s#{i}a" %> {};
+struct <%= "s#{i}b" %> {};
+#if defined(METABENCH)
+using <%= "t#{i}a" %> = conditional_t<true, <%= "s#{i}a" %>, <%= "s#{i}b" %>>;
+using <%= "t#{i}b" %> = conditional_t<true, <%= "s#{i}b" %>, <%= "s#{i}a" %>>;
+using <%= "t#{i}c" %> = conditional_t<false, <%= "s#{i}a" %>, <%= "s#{i}b" %>>;
+using <%= "t#{i}d" %> = conditional_t<false, <%= "s#{i}b" %>, <%= "s#{i}a" %>>;
+#else
+using <%= "t#{i}a" %> = <%= "s#{i}a" %>;
+using <%= "t#{i}b" %> = <%= "s#{i}b" %>;
+using <%= "t#{i}c" %> = <%= "s#{i}b" %>;
+using <%= "t#{i}d" %> = <%= "s#{i}a" %>;
+#endif
+<% end %>
+
+
+int main()
+{
+}

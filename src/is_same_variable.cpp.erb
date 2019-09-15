@@ -1,0 +1,26 @@
+template<class T, class U>
+inline constexpr bool is_same = false;
+
+template<class T>
+inline constexpr bool is_same<T, T> = true;
+
+<% (1..n).each do |i| %>
+struct <%= "s#{i}a" %> {};
+struct <%= "s#{i}b" %> {};
+#if defined(METABENCH)
+inline constexpr bool <%= "t#{i}a" %> = is_same<<%= "s#{i}a" %>, <%= "s#{i}b" %>>;
+inline constexpr bool <%= "t#{i}b" %> = is_same<<%= "s#{i}b" %>, <%= "s#{i}a" %>>;
+inline constexpr bool <%= "t#{i}c" %> = is_same<<%= "s#{i}a" %>, <%= "s#{i}a" %>>;
+inline constexpr bool <%= "t#{i}d" %> = is_same<<%= "s#{i}b" %>, <%= "s#{i}b" %>>;
+#else
+inline constexpr bool <%= "t#{i}a" %> = false;
+inline constexpr bool <%= "t#{i}b" %> = false;
+inline constexpr bool <%= "t#{i}c" %> = true;
+inline constexpr bool <%= "t#{i}d" %> = true;
+#endif
+<% end %>
+
+
+int main()
+{
+}
