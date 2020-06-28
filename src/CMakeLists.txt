@@ -45,21 +45,31 @@ metabench_add_chart(chart.conditional ALL
 
 metabench_add_dataset(data.is_same.std
     is_same_std.cpp.erb "[10, 500, 1000, 2000, 5000, 10000, 15000, 20000, 30000]"
-    NAME "std::is_same_v"
-)
-metabench_add_dataset(data.is_same.std_no_helper
-    is_same_std_no_helper.cpp.erb "[10, 500, 1000, 2000, 5000, 10000, 15000, 20000, 30000]"
     NAME "std::is_same::value"
 )
-metabench_add_dataset(data.is_same.variable
-    is_same_variable.cpp.erb "[10, 500, 1000, 2000, 5000, 10000, 15000, 20000, 30000]"
-    NAME "is_same variable"
+metabench_add_dataset(data.is_same_v.std
+    is_same_v_std.cpp.erb "[10, 500, 1000, 2000, 5000, 10000, 15000, 20000, 30000]"
+    NAME "std::is_same_v"
+)
+metabench_add_dataset(data.is_same
+    is_same.cpp.erb "[10, 500, 1000, 2000, 5000, 10000, 15000, 20000, 30000]"
+    NAME "is_same::value"
+)
+metabench_add_dataset(data.is_same_v
+    is_same_v.cpp.erb "[10, 500, 1000, 2000, 5000, 10000, 15000, 20000, 30000]"
+    NAME "is_same_v"
+)
+metabench_add_dataset(data.is_same_alt
+    is_same_alt.cpp.erb "[10, 500, 1000, 2000, 5000, 10000, 15000, 20000, 30000]"
+    NAME "is_same (alt)"
 )
 metabench_add_chart(chart.is_same ALL
     TITLE "is_same"
     SUBTITLE "(lower is better)"
     DATASETS
         data.is_same.std
-        data.is_same.std_no_helper
-        data.is_same.variable
+        data.is_same_v.std
+        data.is_same
+        data.is_same_v
+        data.is_same_alt
 )

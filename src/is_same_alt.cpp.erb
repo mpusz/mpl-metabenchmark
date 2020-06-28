@@ -16,11 +16,18 @@ typedef integral_constant<bool, true>     true_type;
 /// The type used as a compile-time boolean with false value.
 typedef integral_constant<bool, false>    false_type;
 
-template<class T, class U>
-struct is_same : false_type {};
+struct WrapperBase {
+  static constexpr bool IsSame(void*) { return false; }
+};
 
-template<class T>
-struct is_same<T, T> : true_type {};
+template<typename T>
+struct Wrapper : WrapperBase {
+  using WrapperBase::IsSame;
+  static constexpr bool IsSame(Wrapper<T>*) { return true; }
+};
+
+template<class T, class U>
+using is_same = integral_constant<bool, Wrapper<T>::IsSame((Wrapper<U>*)(nullptr))>;
 
 <% (1..n).each do |i| %>
 struct <%= "s#{i}a" %> {};
