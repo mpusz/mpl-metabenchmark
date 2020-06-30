@@ -73,3 +73,24 @@ metabench_add_chart(chart.is_same ALL
         data.is_same_v
         data.is_same_alt
 )
+
+metabench_add_dataset(data.dispatch_sfinae
+    dispatch_sfinae.cpp.erb "[5000, 10000, 20000, 50000, 100000, 150000, 200000, 300000]"
+    NAME "SFINAE"
+)
+metabench_add_dataset(data.dispatch_constexpr_if
+    dispatch_constexpr_if.cpp.erb "[5000, 10000, 20000, 50000, 100000, 150000, 200000, 300000]"
+    NAME "if constexpr"
+)
+metabench_add_dataset(data.dispatch_concepts
+    dispatch_concepts.cpp.erb "[5000, 10000, 20000, 50000, 100000, 150000, 200000, 300000]"
+    NAME "concepts"
+)
+metabench_add_chart(chart.dispatch ALL
+    TITLE "dispatch"
+    SUBTITLE "(lower is better)"
+    DATASETS
+        data.dispatch_sfinae
+        data.dispatch_constexpr_if
+        data.dispatch_concepts
+)

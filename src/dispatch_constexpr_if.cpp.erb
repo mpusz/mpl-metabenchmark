@@ -1,0 +1,26 @@
+template<long long N>
+struct X {
+  static constexpr int foo()
+  {
+    if constexpr(N % 2 == 0)
+      return 0;
+    else
+      return 1;
+  }
+  static constexpr int boo()
+  {
+    return -1;
+  }
+};
+
+<% (1..n).each do |i| %>
+#if defined(METABENCH)
+inline constexpr int <%= "i#{i}" %> = X<<%= "#{i}" %>>::foo();
+#else
+inline constexpr int <%= "i#{i}" %> = X<<%= "#{i}" %>>::boo();
+#endif
+<% end %>
+
+int main()
+{
+}
